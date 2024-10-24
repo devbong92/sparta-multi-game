@@ -14,6 +14,8 @@ import {
   DB2_HOST,
   DB2_PORT,
   GAME_ID,
+  DEFAULT_X,
+  DEFAULT_Y,
 } from '../constants/env.js';
 
 // 중앙 집중식 관리
@@ -32,6 +34,8 @@ export const config = {
   },
   game: {
     gameId: GAME_ID,
+    defaultX: DEFAULT_X,
+    defaultY: DEFAULT_Y,
   },
   database: {
     GAME_DB: {

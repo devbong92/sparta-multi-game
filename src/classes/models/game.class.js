@@ -1,7 +1,4 @@
-import {
-  createLocationPacket,
-  gameStartNotification,
-} from '../../utils/notification/game.notification.js';
+import { createLocationPacket } from '../../utils/notification/game.notification.js';
 import IntervalManager from '../managers/interval.manager.js';
 
 const MAX_PLAYERS = 2;
@@ -41,18 +38,20 @@ class Game {
     return maxLatency;
   }
 
-  getAllLocation(deviceId) {
+  getAllLocation(userId) {
+    // * 최대 레이턴시값 계산
     const maxLatency = this.getMaxLatency();
 
-    // TODO: 전체 위치 정보를 주게되면 내 캐릭터가 2개 스폰되는 형상으로 본인 제외처리.
     const locationData = [];
     this.users.forEach((user) => {
-      if (user.id !== deviceId) {
+      // * 전체 위치 정보를 주게되면 내 캐릭터가 2개 스폰되는 형상으로 본인 제외처리.
+      if (user.id !== userId) {
         const { x, y } = user.calculatePosition(maxLatency);
-        locationData.push({ id: user.id, x, y });
+        locationData.push({ id: user.id, playerId: user.playerId, x, y });
       }
     });
 
+    // * LocationUpdate 패킷 생성
     return createLocationPacket(locationData);
   }
 }

@@ -1,7 +1,7 @@
 import { config } from '../config/config.js';
 import { PACKET_TYPE } from '../constants/header.js';
 import { getHandlerById } from '../handlers/index.js';
-import { getUserById } from '../session/user.session.js';
+import { getUserByDeviceId } from '../session/user.session.js';
 import { handleError } from '../utils/error/errorHandler.js';
 import { packetParser } from '../utils/parser/packetParser.js';
 
@@ -60,20 +60,25 @@ export const onData = (socket) => async (data) => {
             const { handlerId, deviceId, payload } = packetParser(packet);
 
             // * deviceId를 통해 유저 세션의 정보 조회
-            let user = getUserById(deviceId);
+            let user = getUserByDeviceId(deviceId);
+            let userId;
 
-            console.log(
-              ' [onData getUserById] ============>>> deviceId: ',
-              deviceId,
-              ' typeof User =>> ',
-              typeof user,
-            );
+            if (user) {
+              userId = user.id;
+
+              console.log(
+                ' [onData getUserById] ============>>> deviceId: ',
+                deviceId,
+                ' userId =>> ',
+                userId,
+              );
+            }
 
             // * handlerId를 통해서 핸들러 정보 불러오기
             const handler = getHandlerById(handlerId);
 
             // * 위에서 불러온 핸들러 실행
-            await handler({ socket, deviceId, payload });
+            await handler({ socket, userId, payload });
 
             console.log('[ packet Parser ]S ======================= ');
             console.log(`handlerId: ${handlerId}`);
@@ -84,6 +89,7 @@ export const onData = (socket) => async (data) => {
             break;
         }
       } catch (e) {
+        // * 에러처리 응답
         handleError(socket, e);
       }
     } else {

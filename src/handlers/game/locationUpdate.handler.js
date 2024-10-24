@@ -4,7 +4,7 @@ import CustomError from '../../utils/error/customError.js';
 import { ErrorCodes } from '../../utils/error/errorCodes.js';
 import { handleError } from '../../utils/error/errorHandler.js';
 
-const locationUpdateHandler = ({ socket, deviceId, payload }) => {
+const locationUpdateHandler = ({ socket, userId, payload }) => {
   try {
     // * 유저 좌표
     const { x, y } = payload;
@@ -17,9 +17,9 @@ const locationUpdateHandler = ({ socket, deviceId, payload }) => {
       throw new CustomError(ErrorCodes.GAME_NOT_FOUND, '게임 세션을 찾을 수 없습니다.');
     }
 
-    console.log('@@@ deviceId =>>>  ', deviceId);
+    console.log('@@@ userId =>>>  ', userId);
     // * deviceId를 통해 게임세션에서 유저 조회
-    const user = gameSession.getUser(deviceId);
+    const user = gameSession.getUser(userId);
     if (!user) {
       throw new CustomError(ErrorCodes.USER_NOT_FOUND, '유저를 찾을 수 없습니다.');
     }
@@ -28,11 +28,12 @@ const locationUpdateHandler = ({ socket, deviceId, payload }) => {
     user.updatePosition(x, y);
 
     // * 게임세션 전체 위치정보 조회
-    const packet = gameSession.getAllLocation(deviceId);
+    const packet = gameSession.getAllLocation(userId);
 
     // * 게임세션 전체 위치정보 전송
     socket.write(packet);
   } catch (e) {
+    // * 오류 응답 처리
     handleError(socket, e);
   }
 };

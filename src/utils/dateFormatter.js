@@ -8,3 +8,7 @@ export function formatDate(date) {
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+
+export function formatTimestampToMysqlDateTime(timestamp) {
+  return new Date(timestamp).toISOString().slice(0, 19).replace('T', ' ');
+}

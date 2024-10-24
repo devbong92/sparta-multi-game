@@ -60,5 +60,6 @@ export const createResponse = (handlerId, responseCode, data = null, userId) => 
    */
   packetType.writeUint8(PACKET_TYPE.NORMAL, 0);
 
+  // * [ packetLength, packetType, buffer ] 을 합쳐서 반환
   return Buffer.concat([packetLength, packetType, buffer]);
 };

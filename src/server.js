@@ -5,6 +5,8 @@ import { onConnection } from './events/onConnection.js';
 
 const server = net.createServer(onConnection);
 
+// * 사전기능 .proto 파일로드, DB연결 등
+// * 서버 기동시 필요한 기능이 정상적으로 된다면 서버를 띄움
 initServer()
   .then(() => {
     server.listen(config.server.port, config.server.host, () => {

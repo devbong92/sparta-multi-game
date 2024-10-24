@@ -34,6 +34,5 @@ export const getProtoTypeNameByHandlerId = (handlerId) => {
       `프로토타입을 찾을 수 없습니다 : handlerId : ${handlerId}`,
     );
   }
-  console.log('eee =>> ', handlers[handlerId], handlerId);
   return handlers[handlerId].protoType;
 };

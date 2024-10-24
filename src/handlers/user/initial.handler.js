@@ -1,16 +1,22 @@
 import { config } from '../../config/config.js';
 import { HANDLER_IDS, RESPONSE_SUCCESS_CODE } from '../../constants/handlerIds.js';
-import { createUser, findUserByDeviceId, updateUserLogin } from '../../db/user/user.db.js';
+import {
+  createUser,
+  findLastGameEndByUserId,
+  findUserByDeviceId,
+  updateUserLogin,
+} from '../../db/user/user.db.js';
 import { getGameSession } from '../../session/game.session.js';
 import { addUser } from '../../session/user.session.js';
 import { handleError } from '../../utils/error/errorHandler.js';
 import { createResponse } from '../../utils/response/createResponse.js';
 
-const initialHandler = async ({ socket, deviceId, payload }) => {
+const initialHandler = async ({ socket, userId, payload }) => {
   //
 
   try {
-    // const { deviceId } = payload;
+    // * playerId
+    const { deviceId, playerId, latency } = payload;
     // TODO: deviceId === payload.deviceId
     console.log('[ initial ] deviceId  payload =>>> ', deviceId, payload);
 
@@ -26,18 +32,28 @@ const initialHandler = async ({ socket, deviceId, payload }) => {
       await updateUserLogin(user.id);
     }
 
-    // TODO: userId => deviceId로 변경
     // * User클래스 생성 및 userSessions에 저장
-    let cUser = addUser(socket, user.deviceId);
+    let cUser = addUser(socket, user.id, user.deviceId, playerId, latency);
 
     // * 게임 세션에 유저 추가
     const gameSession = getGameSession(config.game.gameId);
     gameSession.addUser(cUser);
 
+    // TODO: 도전과제1 마지막위치 전달
+    let lastX = config.game.defaultX,
+      lastY = config.game.defaultY;
+    const lastGameEndData = await findLastGameEndByUserId(user.id);
+    console.log('@@@ lastGameEndData =>>> ', lastGameEndData);
+    if (lastGameEndData) {
+      lastX = lastGameEndData.x;
+      lastY = lastGameEndData.y;
+    }
+
+    // * 응답 처리
     const initialResponse = createResponse(
       HANDLER_IDS.INITIAL,
       RESPONSE_SUCCESS_CODE,
-      { userId: user.id },
+      { userId: user.id, x: lastX, y: lastY },
       deviceId,
     );
 

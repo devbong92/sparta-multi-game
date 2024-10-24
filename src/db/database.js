@@ -12,14 +12,14 @@ const createPool = (dbConfig) => {
     user: dbConfig.user,
     password: dbConfig.password,
     database: dbConfig.name,
-    connectionLimit: 10, // 커넥션 풀에서 최대 연결 수
-    waitForConnections: true, // 최대 연결이 모두 사용중일 때, 대기처리할 것인가? queueLimit와 연계
-    queueLimit: 0, // 0일 경우 무제한 대기열
+    connectionLimit: 10, // * 커넥션 풀에서 최대 연결 수
+    waitForConnections: true, // * 최대 연결이 모두 사용중일 때, 대기처리할 것인가? queueLimit와 연계
+    queueLimit: 0, // * 0일 경우 무제한 대기열
   });
 
   const originalQuery = pool.query;
 
-  // 오버라이딩해서 커스텀 진행
+  // * 오버라이딩해서 커스텀 진행
   pool.query = (sql, params) => {
     const date = new Date();
     // 쿼리 실행시 로그
