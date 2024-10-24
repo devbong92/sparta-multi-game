@@ -17,3 +17,5 @@ export const DB2_USER = process.env.DB2_USER || 'user2';
 export const DB2_PASSWORD = process.env.DB2_PASSWORD || 'password2';
 export const DB2_HOST = process.env.DB2_HOST || 'localhost';
 export const DB2_PORT = process.env.DB2_PORT || 3306;
+
+export const GAME_ID = 'game1';

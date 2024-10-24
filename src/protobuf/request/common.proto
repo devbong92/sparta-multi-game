@@ -1,0 +1,11 @@
+syntax = 'proto3';
+
+package common;
+
+// * 공통 헤더 
+message Packet {
+    uint32 handlerId = 1;
+    string userId = 2;
+    string version = 3;
+    bytes payload = 4;
+}

@@ -1,0 +1,11 @@
+syntax = 'proto3';
+
+package initial;
+
+
+// * 연결용 패킷
+message InitialPayload {
+    string deviceId = 1;
+    uint32 playerId = 2;
+    float latency = 3;
+}

@@ -13,6 +13,7 @@ import {
   DB2_PASSWORD,
   DB2_HOST,
   DB2_PORT,
+  GAME_ID,
 } from '../constants/env.js';
 
 // 중앙 집중식 관리
@@ -28,6 +29,9 @@ export const config = {
   packet: {
     totalLength: TOTAL_LENGTH,
     typeLength: PACKET_TYPE_LENGTH,
+  },
+  game: {
+    gameId: GAME_ID,
   },
   database: {
     GAME_DB: {

@@ -1,0 +1,11 @@
+syntax = 'proto3';
+
+package response;
+
+// * 응답용 패킷 
+message Response {
+    uint32 handlerId = 1;
+    uint32 responseCode = 2;
+    int64 timestamp = 3;
+    bytes data = 4;
+}
