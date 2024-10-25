@@ -45,7 +45,6 @@ export const createPingPacket = (timestamp) => {
   const protoMessages = getProtoMessages();
   // * 핑용 프로토파일
   const ping = protoMessages.common.Ping;
-
   // * timestamp 필드 payload에 담기
   const payload = { timestamp };
   // * 메시지 생성

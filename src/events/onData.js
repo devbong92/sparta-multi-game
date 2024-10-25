@@ -1,7 +1,10 @@
 import { config } from '../config/config.js';
 import { PACKET_TYPE } from '../constants/header.js';
 import { getHandlerById } from '../handlers/index.js';
-import { getUserByDeviceId } from '../session/user.session.js';
+import { getProtoMessages } from '../init/loadProtos.js';
+import { getUserByDeviceId, getUserBySocket } from '../session/user.session.js';
+import CustomError from '../utils/error/customError.js';
+import { ErrorCodes } from '../utils/error/errorCodes.js';
 import { handleError } from '../utils/error/errorHandler.js';
 import { packetParser } from '../utils/parser/packetParser.js';
 
@@ -53,6 +56,21 @@ export const onData = (socket) => async (data) => {
         switch (packetType) {
           case PACKET_TYPE.PING: {
             // * const user 중복사용을 위한 scope 지정
+
+            // * 전체 proto message 조회
+            const protoMessages = getProtoMessages();
+            // * Ping message
+            const Ping = protoMessages.common.Ping;
+            // * Ping message로 디코딩
+            const pingMessage = Ping.decode(packet);
+            // * 유저세션에서 소켓으로 유저조회
+            const user = getUserBySocket(socket);
+            if (!user) {
+              throw new CustomError(ErrorCodes.USER_NOT_FOUND, '유저를 찾을 수 없습니다.');
+            }
+            // * Ping 패킷 받아서, 유저의 latency 처리
+            user.handlePong(pingMessage);
+
             break;
           }
           case PACKET_TYPE.NORMAL:

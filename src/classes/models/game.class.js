@@ -11,10 +11,15 @@ class Game {
   }
 
   addUser(user) {
+    // * 세션 유저 최대 인원수 체크
     if (this.users.length >= MAX_PLAYERS) {
       throw new Error('Game session is full');
     }
+    // * 게임 세션에 유저 추가
     this.users.push(user);
+
+    // * 추가 유저 PING 호출
+    this.intervalManager.addPlayer(user.id, user.ping.bind(user), 1000);
   }
 
   getUser(userId) {

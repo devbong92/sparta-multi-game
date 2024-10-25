@@ -9,3 +9,8 @@ message Packet {
     string version = 3;
     bytes payload = 4;
 }
+
+// * 핑 
+message Ping {
+    int64 timestamp = 1;  
+}

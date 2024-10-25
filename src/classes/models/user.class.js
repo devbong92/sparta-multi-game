@@ -1,3 +1,5 @@
+import { createPingPacket } from '../../utils/notification/game.notification.js';
+
 class User {
   constructor(id, socket, deviceId, playerId, latency) {
     this.id = id;
@@ -32,6 +34,22 @@ class User {
       x: this.x,
       y: this.y,
     };
+  }
+
+  // * 유저에게 PING
+  ping() {
+    const now = Date.now();
+
+    this.socket.write(createPingPacket(now));
+  }
+
+  // * 라운드 트립 레이턴시, 클라이언트에서 반환
+  handlePong(data) {
+    const now = Date.now();
+    // * 왕복이니까 반으로 나눔
+    this.latency = (now - data.timestamp) / 2;
+    // * 확인용 로그
+    console.log(`Received pong from user ${this.id} at ${now} with latency ${this.latency}ms`);
   }
 }
 
