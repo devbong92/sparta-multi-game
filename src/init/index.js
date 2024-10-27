@@ -5,6 +5,7 @@ import { ErrorCodes } from '../utils/error/errorCodes.js';
 import { createGameSession } from './createGameSession.js';
 import { loadProtos } from './loadProtos.js';
 
+// * 서버 기동 시 동작 함수
 const initServer = async () => {
   try {
     // * proto 파일 로드
@@ -18,6 +19,7 @@ const initServer = async () => {
   } catch (e) {
     console.error('@@@ [initServer] load Error =>> ', e);
     // process.exit(1);
+    // * 에러처리
     throw new CustomError(ErrorCodes.SERVER_BUILD_ERROR, '[*] [initServer] load Error ');
   }
 };

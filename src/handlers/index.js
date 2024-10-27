@@ -4,17 +4,19 @@ import { ErrorCodes } from '../utils/error/errorCodes.js';
 import locationUpdateHandler from './game/locationUpdate.handler.js';
 import initialHandler from './user/initial.handler.js';
 
+// * 핸들러 및 프로토 타입
 const handlers = {
   [HANDLER_IDS.INITIAL]: {
-    handler: initialHandler, // 핸들러에 대한 함수
-    protoType: 'initial.InitialPacket', // 페이로드에 구성되어있는 프로토버프 구조체의 이름
+    handler: initialHandler, // * 핸들러에 대한 함수
+    protoType: 'initial.InitialPacket', // * 페이로드에 구성되어있는 프로토버프 구조체의 이름
   },
   [HANDLER_IDS.LOCATION_UPDATE]: {
-    handler: locationUpdateHandler, // 핸들러에 대한 함수
-    protoType: 'game.LocationUpdatePayload', // 페이로드에 구성되어있는 프로토버프 구조체의 이름
+    handler: locationUpdateHandler, // * 핸들러에 대한 함수
+    protoType: 'game.LocationUpdatePayload', // * 페이로드에 구성되어있는 프로토버프 구조체의 이름
   },
 };
 
+// * 핸들러 아이디로 핸들러 조회
 export const getHandlerById = (handlerId) => {
   if (!handlers[handlerId]) {
     console.error(`핸들러를 찾을 수 없습니다 : handlerId : ${handlerId}`);
@@ -26,6 +28,7 @@ export const getHandlerById = (handlerId) => {
   return handlers[handlerId].handler;
 };
 
+// * 핸들러 아이디로 프로토 타입 조회
 export const getProtoTypeNameByHandlerId = (handlerId) => {
   if (!handlers[handlerId]) {
     console.error(`프로토타입을 찾을 수 없습니다 : handlerId: ${handlerId}`);

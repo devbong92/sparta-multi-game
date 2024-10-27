@@ -8,6 +8,7 @@ import { ErrorCodes } from '../utils/error/errorCodes.js';
 import { handleError } from '../utils/error/errorHandler.js';
 import { packetParser } from '../utils/parser/packetParser.js';
 
+// * data
 export const onData = (socket) => async (data) => {
   console.log('\n ### [ onData ] ===>>> ');
 

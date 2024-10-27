@@ -4,7 +4,7 @@ import { formatDate } from '../utils/dateFormatter.js';
 
 const { database } = config;
 
-// 데이터베이스 커넥션 풀 생성 함수
+// * 데이터베이스 커넥션 풀 생성 함수
 const createPool = (dbConfig) => {
   const pool = mysql.createPool({
     host: dbConfig.host,
@@ -34,7 +34,7 @@ const createPool = (dbConfig) => {
   return pool;
 };
 
-// 여러 데이터베이스 커넥션 풀 생성
+// * 여러 데이터베이스 커넥션 풀 생성
 const pools = {
   GAME_DB: createPool(database.GAME_DB),
   USER_DB: createPool(database.USER_DB),

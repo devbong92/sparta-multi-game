@@ -3,6 +3,7 @@ import { createGameEnd } from '../db/user/user.db.js';
 import { getGameSession } from '../session/game.session.js';
 import { removeUser } from '../session/user.session.js';
 
+// * end
 export const onEnd = (socket) => async () => {
   console.log('클라이언트 연결이 종료되었습니다.');
 

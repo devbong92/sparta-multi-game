@@ -2,6 +2,7 @@ import CustomError from '../error/customError.js';
 import { ErrorCodes } from '../error/errorCodes.js';
 import { handleError } from '../error/errorHandler.js';
 
+// * DB 연결 테스트
 const testDbConnection = async (pool, dbName) => {
   try {
     const [rows] = await pool.query(`SELECT 1 + 1 AS solution `);
@@ -12,6 +13,7 @@ const testDbConnection = async (pool, dbName) => {
   }
 };
 
+// * 전체 DB 연결 테스트
 const testAllConnections = async (pools) => {
   await testDbConnection(pools.GAME_DB, 'GAME_DB');
   await testDbConnection(pools.USER_DB, 'USER_DB');

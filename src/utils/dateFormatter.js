@@ -1,3 +1,4 @@
+// * 날짜 포매팅
 export function formatDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');

@@ -1,6 +1,7 @@
 import { createResponse } from '../response/createResponse.js';
 import { ErrorCodes } from './errorCodes.js';
 
+// * 에러처리
 export const handleError = (socket, error) => {
   console.error('[ handlerError ] ==>> ', error);
 

@@ -1,7 +1,8 @@
 import { createLocationPacket } from '../../utils/notification/game.notification.js';
 import IntervalManager from '../managers/interval.manager.js';
 
-const MAX_PLAYERS = 2;
+// * 게임 세션당 수용 인원
+const MAX_PLAYERS = 500;
 class Game {
   constructor(id) {
     this.id = id;
@@ -22,10 +23,12 @@ class Game {
     this.intervalManager.addPlayer(user.id, user.ping.bind(user), 1000);
   }
 
+  // * 세션 내 유저 조회
   getUser(userId) {
     return this.users.find((user) => user.id === userId);
   }
 
+  // * 세션 내 유저 삭제
   removeUser(userId) {
     this.users = this.users.filter((user) => user.id !== userId);
     this.intervalManager.removePlayer(userId);
@@ -35,6 +38,7 @@ class Game {
     }
   }
 
+  // * 최대 레이턴시 값 조회
   getMaxLatency() {
     let maxLatency = 0;
     this.users.forEach((user) => {
@@ -43,6 +47,7 @@ class Game {
     return maxLatency;
   }
 
+  // * 전체 좌표값 조회
   getAllLocation(userId) {
     // * 최대 레이턴시값 계산
     const maxLatency = this.getMaxLatency();

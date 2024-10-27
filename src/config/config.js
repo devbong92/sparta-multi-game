@@ -52,7 +52,5 @@ export const config = {
       host: DB2_HOST,
       port: DB2_PORT,
     },
-    // 필요한 만큼 추가
-    // LOG_DB: {}
   },
 };
