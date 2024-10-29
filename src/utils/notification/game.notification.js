@@ -3,6 +3,7 @@ import { PACKET_TYPE } from '../../constants/header.js';
 import { getProtoMessages } from '../../init/loadProtos.js';
 
 // * 알림용 패킷 생성 [ 헤더 + 알림용 패킷 ]
+// * [ 일일퀘스트 5 ] serializer라는 메소드명이 더 자연스러울 수 있음
 const makeNotification = (message, type) => {
   // * 총 길이를 담은 패킷 생성
   const packetLength = Buffer.alloc(config.packet.totalLength);
