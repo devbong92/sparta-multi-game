@@ -13,5 +13,5 @@ export const onError = (socket) => async (err) => {
   await createGameEnd(removedUser);
 
   // * 게임세션에서도 삭제
-  getGameSession(config.game.gameId).removeUser(user.id);
+  getGameSession(config.game.gameId).removeUser(removedUser.id);
 };
