@@ -38,7 +38,10 @@ export const onData = (socket) => async (data) => {
 
     // * 지금 버퍼에 쌓인 길이가, 해당 버퍼에서 예정한 전체 길이보다 큰지 확인
     if (socket.buffer.length >= length) {
-      console.log(`### [ onData : IF ] length: ${length}, packetType: ${packetType}`);
+      // * 테스트 주석 PING 제외
+      if (packetType !== PACKET_TYPE.PING) {
+        console.log(`### [ onData : IF ] length: ${length}, packetType: ${packetType}`);
+      }
 
       /**
        * * buf.subarray([start[, end]])
@@ -51,7 +54,7 @@ export const onData = (socket) => async (data) => {
       const packet = socket.buffer.subarray(totalHeaderLength, length);
       socket.buffer = socket.buffer.subarray(length);
 
-      console.log(`### [IF] packet: ${packet} ###`);
+      // console.log(`### [IF] packet: ${packet} ###`);
 
       try {
         switch (packetType) {

@@ -17,7 +17,7 @@ const locationUpdateHandler = ({ socket, userId, payload }) => {
       throw new CustomError(ErrorCodes.GAME_NOT_FOUND, '게임 세션을 찾을 수 없습니다.');
     }
 
-    console.log('@@@ userId =>>>  ', userId);
+    console.log('@@@ userId =>>>  ', userId, `, (x,y) =>> (${x},${y})`);
     // * deviceId를 통해 게임세션에서 유저 조회
     const user = gameSession.getUser(userId);
     if (!user) {

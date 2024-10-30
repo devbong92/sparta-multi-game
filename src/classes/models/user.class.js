@@ -70,7 +70,9 @@ class User {
     // * 왕복이니까 반으로 나눔
     this.latency = (now - data.timestamp) / 2;
     // * 확인용 로그
-    console.log(`Received pong from user ${this.id} at ${now} with latency ${this.latency}ms`);
+    console.log(
+      `${data.timestamp} ::: Received pong from user ${this.id} at ${now} with latency ${this.latency}ms`,
+    );
   }
 }
 
