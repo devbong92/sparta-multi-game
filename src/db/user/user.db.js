@@ -1,4 +1,6 @@
 import { formatTimestampToMysqlDateTime } from '../../utils/dateFormatter.js';
+import CustomError from '../../utils/error/customError.js';
+import { ErrorCodes } from '../../utils/error/errorCodes.js';
 import { toCamelCase } from '../../utils/transformCase.js';
 import pools from '../database.js';
 import { SQL_QUERIES } from './user.queries.js';
@@ -25,6 +27,10 @@ export const updateUserLogin = async (id) => {
 // * game_end 테이블에 데이터 입력
 export const createGameEnd = async (user) => {
   console.log('[ createGameEnd ] =>>> ', user);
+  // * 유저가 없는 경우,
+  if (!user) {
+    throw new CustomError(ErrorCodes.USER_NOT_FOUND, '유저를 찾을 수 없습니다.');
+  }
   const id = uuidv4();
   await pools.USER_DB.query(SQL_QUERIES.CREATE_GAME_END, [
     id,
