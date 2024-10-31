@@ -3,8 +3,8 @@ import { getProtoMessages, loadProtos } from './src/init/loadProtos.js';
 import { v4 as uuidv4 } from 'uuid';
 import Long from 'long';
 
-const HOST = '127.0.0.1';
-const PORT = 5555;
+const HOST = 'vamuzz.shop'; //'127.0.0.1';
+const PORT = 3020; //5555;
 const CLIENT_VERSION = '1.0.0';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -260,7 +260,7 @@ class Client {
   console.log('### [ TEST CLIENT : START :] ### ');
 
   await loadProtos();
-  let LIMIT = 10;
+  let LIMIT = 30;
   let dummies = [];
 
   for (let i = 0; i < LIMIT; i++) {
