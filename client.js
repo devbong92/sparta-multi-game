@@ -103,7 +103,7 @@ class Client {
     this._deviceId = deviceId;
     this._x = 0;
     this._y = 0;
-    this._latency = 50 + Math.random() * 100;
+    this._latency = 30 + Math.random() * 100;
     this._framerate = this._generateInitalFramerate();
     this._direction = Math.random() * 2 * Math.PI; // 랜덤한 초기 각도
   }
@@ -117,7 +117,7 @@ class Client {
         this._deviceId,
         {
           deviceId: this._deviceId,
-          playerId: 1,
+          playerId: Math.floor(Math.random() * 4),
           latency: this._latency,
         },
         CLIENT_VERSION,
@@ -174,7 +174,7 @@ class Client {
       } else if (packetType === 3) {
         try {
           const locationUpdate = protoMessages.gameNotification.LocationUpdate;
-          const locationUpdateMessage = locationUpdate.decode(packet);
+          // const locationUpdateMessage = locationUpdate.decode(packet);
 
           // console.log('응답 데이터:', locationUpdateMessage);
         } catch (error) {
@@ -260,7 +260,7 @@ class Client {
   console.log('### [ TEST CLIENT : START :] ### ');
 
   await loadProtos();
-  let LIMIT = 5;
+  let LIMIT = 10;
   let dummies = [];
 
   for (let i = 0; i < LIMIT; i++) {
