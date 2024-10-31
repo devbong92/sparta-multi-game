@@ -1,6 +1,6 @@
 import BaseManager from './base.manager.js';
 
-// * 인터벌 매니저
+// * 인터벌 매니저 ( =레이턴시 매니저 )
 class IntervalManager extends BaseManager {
   constructor() {
     super();
@@ -26,6 +26,7 @@ class IntervalManager extends BaseManager {
       const userIntervals = this.intervals.get(playerId);
       userIntervals.forEach((intervalId) => clearInterval(intervalId));
       this.intervals.delete(playerId);
+      clearInterval(this.intervals.get(playerId));
     }
   }
 

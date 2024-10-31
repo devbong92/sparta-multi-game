@@ -20,6 +20,7 @@ class Game {
     this.users.push(user);
 
     // * 추가 유저 PING 호출
+    // * user.ping() 메소드에서 this.socket을 사용하기 때문에 대상을 명확하게 하기 위해서 bind()로 user지정
     this.intervalManager.addPlayer(user.id, user.ping.bind(user), 1000);
   }
 
